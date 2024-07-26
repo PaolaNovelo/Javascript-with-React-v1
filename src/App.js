@@ -7,9 +7,20 @@ import Equipo from './componentes/Equipo';
 
 function App() {
   const [mostrarFormulario, actualizarMostrar] = useState(false)
+  const [colaboradores, actualizarColaboradores] = useState([])
+  
   //Ternario --> condicion ? seMuestra : noSeMuestra
+  
   const cambiarMostrar = () => {
     actualizarMostrar(!mostrarFormulario)
+  }
+
+  //Registrar colaborador
+  const registrarColaborador = (colaborador) => {
+    console.log("Nuevo colaborador", colaborador)
+    //Spread operator (crear una copia de datos actuales y luego agrega el colaborador)
+    //agrega nuevos datos y react reacciona a esos cambios
+    actualizarColaboradores([...colaboradores, colaborador])
   }
 
   //Lista de equipos
@@ -53,23 +64,26 @@ function App() {
     //Se necesita recorrer el arreglo para que cree los componentes de los equipos
   ]
 
-  
-
-
-
-
 
   return (
     <div>
       <Header />
-      { mostrarFormulario ? <Formulario /> : <> </> }
+      { mostrarFormulario ? <Formulario 
+        equipos={equipos.map((equipo) => equipo.titulo)}
+        registrarColaborador={registrarColaborador}
+         /> : <> </>
+          }
       <MiOrg cambiarMostrar={cambiarMostrar}/>
       {
         //El metodo map recibe datos y con ellos crea un nuevo arreglo
-        equipos.map( (equipo) => {
-          console.log("Equipo: ", equipo)
-          return <Equipo datos={equipo} key={equipo.titulo}/>
-        } )
+        //Usa los objetos "equipo" creados en linea 17
+        //En este caso, por cada objeto que se encuentre, creara un nuevo equipo
+        equipos.map( (equipo) => 
+          <Equipo 
+        datos={equipo} 
+        key={equipo.titulo} 
+        colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}/>
+        )
       }
     </div>
   );

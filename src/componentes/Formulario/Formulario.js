@@ -5,13 +5,16 @@ import ListaOpciones from "../ListaOpciones"
 import Boton from "../Boton"
 
 
-const Formulario = () => {
+const Formulario = (props) => {
     //Estados de nombre, puesto y foto
     const [nombre, actualizarNombre] = useState("")
     const [puesto, actualizarPuesto] = useState("")
     const [foto, actualizarFoto] = useState("")
     //Estado del equipo
     const [equipo, actualizarEquipo] = useState("")
+
+    //Destructuracion
+    const { registrarColaborador} = props
     
     //importante saber manejar esto
     //Para que no se recargue la pagina al hacer click en boton
@@ -24,7 +27,7 @@ const Formulario = () => {
             foto : foto,
             equipo : equipo
         }
-        console.log(datosAEnviar)
+        registrarColaborador(datosAEnviar)
     }
 
     return <section className="formulario">
@@ -50,6 +53,7 @@ const Formulario = () => {
             <ListaOpciones 
                 valor={equipo}
                 actualizarEquipo={actualizarEquipo}
+                equipos={props.equipos}
                 />
             <Boton>
                 Crear
