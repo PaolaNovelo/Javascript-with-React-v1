@@ -4,10 +4,16 @@ import Header from './componentes/Header/Header';
 import Formulario from './componentes/Formulario/Formulario';
 import MiOrg from './componentes/MiOrg';
 import Equipo from './componentes/Equipo';
+import Footer from './componentes/Footer';
 
 function App() {
   const [mostrarFormulario, actualizarMostrar] = useState(false)
-  const [colaboradores, actualizarColaboradores] = useState([])
+  const [colaboradores, actualizarColaboradores] = useState([{
+    equipo: "Front End",
+    foto:"https://i.pinimg.com/736x/ca/9f/5b/ca9f5bcf4e674e831fd032b13a262ec0.jpg",
+    nombre: "Paola",
+    puesto: "Intern"
+  }])
   
   //Ternario --> condicion ? seMuestra : noSeMuestra
   
@@ -85,6 +91,11 @@ function App() {
         colaboradores={colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}/>
         )
       }
+
+      <Footer />
+
+
+
     </div>
   );
 }
